@@ -1,16 +1,56 @@
 package com.bgsw.rest;
 
 import com.bgsw.model.Employee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.server.DelegatingServerHttpResponse;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class EmployeeController {
-    @GetMapping("/employee")
-    public Employee getEmployee(){
 
-        Employee emp = new Employee(1234,"Supriya",98765);
-        return emp;
+    List<Employee> empList= new ArrayList<>();
+
+    @GetMapping("/employee")
+    public List<Employee> getEmployee(){
+
+       return empList;
     }
 
+    @PostMapping("/employee")
+    public Employee saveEmployee( @RequestBody Employee emp ){
+             empList.add(emp);
+        return emp;
+
+    }
+    @PutMapping("/employee")
+    public String updateEmployee( @RequestBody Employee emp){
+
+           if( empList.contains(emp)){
+              int p= empList.indexOf(emp);
+               empList.remove(p);
+               empList.add(emp);
+               return " Employee records updated ";
+           }
+
+
+            else
+        return " employee not found with given id";
+    }
+
+
+    @DeleteMapping("/employee/{empId}")
+    public String deleteEmployee(@PathVariable int empId){
+
+       for(Employee e:empList){
+
+           if(e.getEmpId()==empId){
+               empList.remove(e);
+               return " Employee deleted successfully" + empId;
+           }
+
+       }
+       return " No employee found with given id"+ empId;
+    }
 }
