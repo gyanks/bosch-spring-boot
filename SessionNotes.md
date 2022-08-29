@@ -50,6 +50,25 @@ HTTP
     DELETE
 
 =================
+Date: 29/8/22
+Topics: Persistance ORM , JPA
+
+Serializable 
+===========
+
+
+Java - > Objects 
+
+JDBC 
+
+SQl = > Relations (Table)
+
+ORM (Hibernate)
+
+JPA : Java Persistence API 
+
+
+
 
 
 
